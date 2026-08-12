@@ -1,0 +1,171 @@
+getwd()  ##always check the working before start the project
+
+dir()  ## use to check the file in working directory
+ 
+x <- 1:5  ##use the <- instead of = sign, prevent from the confusion
+print(x)
+
+x             ##after assign the variable, press entre/ work same as print()
+
+### R basic objects classes are...., and check by using class()
+x <- c(2,4,5)
+class(x)
+x <- c("a", "b")
+class(x)
+xy <- c("1","2")  ##whenever written in "", class will be character, such as...
+class(xy)
+x <- 1:17  ## when we create the seq it give the integer character/ use L with number(1L)
+class(x)
+x <- c(T,F)
+class(x)
+x <- c(1+0i,2+0i)
+class(x)
+
+ls()  ##show save variables/function/list... in workspace
+
+###### Data types####
+
+###  (1) creating the vector by using c() and vector() function
+ x <- c(3, 8)      ## numeric
+ x <- c(TRUE, FALSE)    ## logical
+ x <- c(T, F)    ## logical
+
+x <- c("a", "b", "c") ## character
+x <- 9:20    ## integer
+ x <- c(6+0i, 2+0i) ## complex
+
+ x <- vector("numeric", 7)    ###numeric behave as 0(zero)
+x
+#### implicit coercion when mixing the objects
+x <- c(1,"a")
+class(x)
+x <- c(TRUE, 3)
+class(x)
+x <- c(TRUE, 0)
+class(x)
+### Explicit coercion........
+x <- 0:9
+class(x)
+as.numeric(x)
+as.logical(x)
+as.character(x)
+###1)The Danger: When Explicit Coercion Fails (NA Generation)
+x <- c("1","2","apple")
+as.numeric(x)
+###2)The Dangerous R Trap: Factor-to-Numeric Coercion
+weights <- factor(c("70", "85", "90", "70","60","30"))
+as.double(weights)
+### (solution) right way is...
+x <- as.character(weights)
+as.numeric(x)
+x <- vector(1,2,3,4,5,6,7)
+attributes(x)
+
+### (2) creating the list....
+l <- list(1,"a",TRUE,1+0i)
+l
+names(l) <- c("numeric", "character" , "logical" , "complex") ##use names function to... list
+l
+l <- vector("list", length = 7) ####list can also created by vector function
+l
+l <- list(character = c("a","b", "c","d"), numeric  = c(1,2,3,4), logical = c(T,F))
+l
+attributes(l)
+
+###   (3)  creating the matrices
+m <- matrix(nrow = 2 ,ncol = 3)  ###if no number is add
+m
+m <- matrix(1:8, nrow = 2, ncol = 4) ##entities are filled by columns
+m
+m <- matrix(1:8, byrow = TRUE, nrow = 4)
+m
+x <- 2:7
+y <- 3:8
+m <- cbind(x,y)  ###vectors can be bind by using cbind()and rbind()
+m
+##Matrices can also be created directly from vectors by adding a dimension attribute.
+m <- 1:16
+dim(m) <- c(4, 4)
+m
+### name by using the dimname() function
+rownames(m) <- c("a", "b", "c", "d")
+colnames(m) <- c("e", "f", "g", "h")
+m
+dimnames(m) <- list(c("e","f","g","h"),c("a","b","c","d"))##named by using list and dimnames() function
+m
+attributes(m)
+
+##  (4) creating factors.....
+f <- factor(c("Male", "Female"))
+f <- factor(c("yes","yes","no","yes","no"))
+levels(f) ## alphabetically order
+nlevels(f)   ##check the total no of levels
+table(f)
+f <- factor(c("yes","yes","no","yes","no"), levels = c("yes","no")) ###arrange levels explicitly
+f
+attributes(f)
+### creating the data frame.....
+df <-data.frame(gene1 = c(1,2,3,4), gene2 = c(7,9,7,6), gene3 = c(12,34,13,14))
+df
+df <-data.frame(gene1 = c(1,2,3,4), gene2 = c("very low","low", "high", "very high"),
+                gene3 = c(T,F,T,T))  ##3 this show data frame contain different data class
+df
+nrow(df)
+rownames(df) <- c("r1", "r2", "r3", "r4")
+attributes(df)
+dfm <- as.data.frame(m) ### change matrix into dataframe
+class(dfm)
+m <- data.matrix(dfm) ### change into matrix
+class(m)
+m
+
+arr <- array(c(1,2,3,4), dim = c(2,2))
+arr
+### missing value in data .....
+x <- c(1, 2, 8, NA, 3)    # Create a vector with NAs in it
+is.na(x)  ##check the na presence
+is.nan(x)
+
+## Now create a vector with both NA and NaN values
+x <- c(1, NaN, 7, NA, 8)
+is.na(x)
+is.nan(x)
+
+###Three Subsetting Operators in R
+
+### 3. subsetting the list
+## 1) using []
+x <- list(pie = 1:4, chart = 0:6)
+x[1]  ##Result is still a list.
+
+##Using [[]]
+x[[1]]   ##Result is the actual vector.
+x <- list(pie =1:4,
+          chart =0:8,
+          well ="hello")              ##Extract Multiple List Elements
+x[c(1,3)]
+
+## using $ sign
+x$chart
+x <- list(added = 1:5)             ###Partial Matching
+x$a
+
+### different between $ and [[]]
+
+###2. Subsetting Vectors...
+x <- c("a","b","c","c","d","a")
+x[1]    ##single element
+x[c(1,3,4)]   ##for multiple elements
+x[1:4]
+x[x > "a"] ###logical subsetting
+
+##3. Subsetting Matrices
+x <- matrix(1:6, 2, 3)
+x
+x[1,2]  ### synx x[row,column]
+x[2,]
+x[,3]
+###using the drop argument , keeps it matrix
+x[1, ,drop=FALSE]  ##When writing functions, you often need the result to stay a matrix.
+class(x[1,])
+class(x[1,,drop=FALSE])
