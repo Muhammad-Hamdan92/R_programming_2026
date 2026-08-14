@@ -1,7 +1,0 @@
-{
-    "installOptions": {
-        "installFromRepository": true,
-        "libraryPath": "D:/R_folder/R/libraries",
-        "installDependencies": true
-    }
-}
