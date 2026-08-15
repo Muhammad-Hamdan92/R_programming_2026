@@ -16,11 +16,10 @@ sapply(my_list, mean)   ## giving answer in list
 #do it. For example
 
 list_2 <- list(1, 2, "Ali", 4)
-sapply(list_2, class)
-#or
-sapply(list_2, function(x) x*2)
+sapply(list_2, function (x) x)  # no error is shown,
 
-#(3)vapply
-vapply(1:5, function(x) sqrt(x), FUN.VALUE = numeric(1))
-sapply(1:5, function(x) sqrt(x))
-vapply(1:5, function(x) sqrt(x), FUN.VALUE = numeric(1))
+
+#(3)vapply(X, FUN, FUN.VALUE),  here the vapply work [simply sapply next version is vapply]
+vapply(list_2, function(x) x, FUN.VALUE = numeric(1))#giving error and telling which one is going wrong
+data("iris")
+tapply(iris$Sepal.Length, iris$Sepal.Width, mean)
